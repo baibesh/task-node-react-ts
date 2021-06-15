@@ -37,6 +37,8 @@ export const getMessages = async (): Promise<Array<Message>> => {
 }
 
 export const sendMessage = async () => {
+    // todo: Создать колонку changes в таблице cron_settings, чтобы следить были ли добавлены сообщения,
+    //  Если да, то тогда перебираем новые сообщение, по времени и статусу и отправляем
     const messageRepository = getRepository(Message);
-    console.log(new Date().getDay())
+    console.log(new Date())
 }
