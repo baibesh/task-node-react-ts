@@ -1,0 +1,511 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"WelcomeResponse": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Contact": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"message": {
+						"$ref": "#/components/schemas/Message"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Template": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"path": {
+						"type": "string"
+					},
+					"params": {
+						"items": {
+							"$ref": "#/components/schemas/TemplateParam"
+						},
+						"type": "array"
+					},
+					"message": {
+						"$ref": "#/components/schemas/Message"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"path",
+					"params",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TemplateParam": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"templateId": {
+						"type": "number",
+						"format": "double"
+					},
+					"template": {
+						"$ref": "#/components/schemas/Template"
+					},
+					"nameParam": {
+						"type": "string"
+					},
+					"typeParam": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"templateId",
+					"template",
+					"nameParam",
+					"typeParam"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Message": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"contactId": {
+						"type": "number",
+						"format": "double"
+					},
+					"contact": {
+						"$ref": "#/components/schemas/Contact"
+					},
+					"templateId": {
+						"type": "number",
+						"format": "double"
+					},
+					"template": {
+						"$ref": "#/components/schemas/Template"
+					},
+					"sendDate": {
+						"type": "string"
+					},
+					"sendTime": {
+						"type": "string"
+					},
+					"text": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"contactId",
+					"contact",
+					"templateId",
+					"template",
+					"sendDate",
+					"sendTime",
+					"text",
+					"createdAt",
+					"status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IContactPayload": {
+				"properties": {
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ITemplatePayload": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"content": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"content"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IParamsPayload": {
+				"properties": {
+					"templateId": {
+						"type": "number",
+						"format": "double"
+					},
+					"nameParam": {
+						"type": "string"
+					},
+					"typeParam": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"templateId",
+					"nameParam",
+					"typeParam"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IMessagePayload": {
+				"properties": {
+					"contactId": {
+						"type": "number",
+						"format": "double"
+					},
+					"templateId": {
+						"type": "number",
+						"format": "double"
+					},
+					"text": {
+						"type": "string"
+					},
+					"sendDate": {
+						"type": "string"
+					},
+					"sendTime": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"contactId",
+					"templateId",
+					"text",
+					"sendDate",
+					"sendTime",
+					"status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "backend",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/welcome": {
+			"get": {
+				"operationId": "GetMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/WelcomeResponse"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/contact": {
+			"get": {
+				"operationId": "GetContacts",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Contact"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Контакты"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateContact",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Contact"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Контакты"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IContactPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/contact/generate": {
+			"get": {
+				"operationId": "GenerateContacts",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Контакты"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/template": {
+			"post": {
+				"operationId": "CreateTemplate",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Template"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Шаблоны"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ITemplatePayload"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetTemplates",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Template"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Шаблоны"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/template-param": {
+			"get": {
+				"operationId": "GetTemplateParameters",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/TemplateParam"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Параметры шаблона"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateTemplateParameter",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TemplateParam"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Параметры шаблона"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IParamsPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/message": {
+			"get": {
+				"operationId": "GetMessages",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Message"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Сообщение"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Message"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Сообщение"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IMessagePayload"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
